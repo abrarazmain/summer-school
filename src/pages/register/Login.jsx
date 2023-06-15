@@ -1,38 +1,32 @@
-// import { useContext } from "react";
-import { Link } from "react-router-dom";
-// import { Link, useLocation, useNavigate } from "react-router-dom";
-// import { AuthContext } from "../../providers/AuthProvider";
-// import useTitle from "../../Utils/UseTitle";
+import { useContext } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { AuthContext } from "../../provider/AuthProvider";
 
 const Login = () => {
-//   useTitle(`Login`)
-//   const { signIn, googleLogin } = useContext(AuthContext);
-//   const navigate = useNavigate();
-//   const location = useLocation();
-//   const from = location.state?.from?.pathname || "/";
+  const { signIn,googleLogin } = useContext(AuthContext);
+  const navigate = useNavigate();
+  const location = useLocation();
 
+  const from = location.state?.from?.pathname || "/";
 
-//   const handleGoogleLogin = () => {
-//     googleLogin().then((result) => {
-//       const user = result.user;
-
-//       navigate(from, { replace: true });
-//     });
-//   };
-
-//   const handleLogin = (e) => {
-//     e.preventDefault();
-
-//     const form = e.target;
-//     const email = form.email.value;
-//     const password = form.password.value;
-
-//     signIn(email, password)
-//       .then(() => {
-//         navigate(from, { replace: true });
-//       })
-//       .catch(() => {});
-//   };
+  const handleLogin = (event) => {
+    event.preventDefault();
+    const form = event.target;
+    const email = form.email.value;
+    const password = form.password.value;
+    console.log(email, password);
+    signIn(email, password).then((result) => {
+      const user = result.user;
+      console.log(user);
+    });
+  };
+  const handleGoogleLogin = () => {
+    googleLogin().then((result) => {
+      const user = result.user;
+console.log(user);
+      navigate(from, { replace: true });
+    });
+  };
   return (
     <div className="min-h-screen bg-gray-100 text-gray-900 flex justify-center">
       <div className="max-w-screen-xl m-0 sm:m-10 bg-white shadow sm:rounded-lg flex justify-center flex-1">
@@ -42,7 +36,7 @@ const Login = () => {
             <div className="w-full flex-1 mt-8">
               <div className="flex flex-col items-center">
                 <button
-                //   onClick={handleGoogleLogin}
+                   onClick={handleGoogleLogin}
                   className="w-full max-w-xs font-bold shadow-sm rounded-lg py-3 bg-indigo-100 text-gray-800 flex items-center justify-center transition-all duration-300 ease-in-out focus:outline-none hover:shadow focus:shadow-sm focus:shadow-outline"
                 >
                   <div className="bg-white p-2 rounded-full">
@@ -76,7 +70,7 @@ const Login = () => {
             </div>
             <div className="w-full flex-1 ">
               <div className="mx-auto max-w-xs">
-                <form >
+                <form onSubmit={handleLogin}>
                   {" "}
                   <input
                     className="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"

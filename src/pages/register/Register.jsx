@@ -1,37 +1,32 @@
-// import { getAuth, updateProfile } from "firebase/auth";
-// ("react-router-dom");
-// import app from "../../firebase";
-// import { useContext } from "react";
-// import { AuthContext } from "../../providers/AuthProvider";
+import { useContext } from "react";
+import { useForm } from "react-hook-form";
+
 import { Link } from "react-router-dom";
-// import useTitle from "../../Utils/UseTitle";
+import { AuthContext } from "../../provider/AuthProvider";
 
 const Register = () => {
-  //   useTitle('Register')
-  //   const auth = getAuth(app);
+  const { createUser, updateUserProfile,user } = useContext(AuthContext);
+console.log(user);
+  const {
+    register,
+    formState: { errors },
+    handleSubmit,
+  } = useForm();
 
-  //   const { createUser } = useContext(AuthContext);
+  const onSubmit = (data) => {
+    console.log(data);
+    createUser(data.email, data.password).then((result) => {
+      const loggedUser = result.user;
+      console.log(loggedUser);
+      updateUserProfile(data.name, data.photoURL)
+        .then(() => {
+          console.log("user profile info updated");
+        
+        })
+        .catch((error) => console.log(error));
+    });
+  };
 
-  //   const handleRegister = (e) => {
-  //     e.preventDefault();
-
-  //     const form = e.target;
-  //     const name = form.name.value;
-  //     const email = form.email.value;
-  //     const photo = form.photo.value;
-  //     const password = form.password.value;
-
-  //     createUser(email, password)
-  //       .then(() => {
-  //         updateProfile(auth.currentUser, {
-  //           displayName: name,
-  //           photoURL: photo,
-  //         })
-  //           .then(() => {})
-  //           .catch(() => {});
-  //       })
-  //       .catch(() => {});
-  //   };
   return (
     <div className="min-h-screen bg-gray-100 text-gray-900 flex justify-center">
       <div className="max-w-screen-xl m-0 sm:m-10 bg-white shadow sm:rounded-lg flex justify-center flex-1">
@@ -40,38 +35,61 @@ const Register = () => {
             <h1 className="text-2xl xl:text-3xl font-extrabold">Register</h1>
             <div className="w-full flex-1 mt-8">
               <div className="mx-auto max-w-xs">
-                <form>
+                <form onSubmit={handleSubmit(onSubmit)}>
                   <input
                     className="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white"
                     type="text"
                     placeholder="Name"
                     name="name"
+                    {...register("name")}
                   />
                   <input
                     className="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
                     type="email"
                     placeholder="Email"
                     name="email"
+                    {...register("email")}
                   />
                   <input
                     className="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
                     type="password"
                     placeholder="Password"
                     name="password"
+                    {...register("password", {
+                      required: true,
+                      minLength: 6,
+                      maxLength: 20,
+                      pattern:
+                        /(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])(?=.*[a-z])/,
+                    })}
                   />
-                  <input
-                    className="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
-                    type="password"
-                    placeholder="Confirm Password"
-                    name="confirmPassword"
-                  />
+                  {errors.password?.type === "required" && (
+                    <p className="text-red-600">Password is required</p>
+                  )}
+                  {errors.password?.type === "minLength" && (
+                    <p className="text-red-600">
+                      Password must be 6 characters
+                    </p>
+                  )}
+                  {errors.password?.type === "maxLength" && (
+                    <p className="text-red-600">
+                      Password must be less than 20 characters
+                    </p>
+                  )}
+                  {errors.password?.type === "pattern" && (
+                    <p className="text-red-600">
+                      Password must have one Uppercase one lower case, one
+                      number and one special character.
+                    </p>
+                  )}
                   <input
                     className="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
                     type="text"
                     placeholder="PhotoURl"
                     name="photo"
+                    {...register("photo")}
                   />
-                  <button className="mt-5 tracking-wide font-semibold bg-indigo-500 text-gray-100 w-full py-4 rounded-lg hover:bg-indigo-700 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none">
+                  <button className="mt-5 tracking-wide font-semibold bg-[#65C3C8] text-gray-100 w-full py-4 rounded-lg hover:bg-indigo-700 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none">
                     <svg
                       className="w-6 h-6 -ml-2 "
                       fill="none"
