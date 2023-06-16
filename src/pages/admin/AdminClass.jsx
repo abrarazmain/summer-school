@@ -12,29 +12,29 @@ const AdminClass = () => {
   }, []);
   console.log(classes);
   return (
-    <div className="max-w- mx-auto grid grid-cols-">
-    
-      {classes&& classes.map((Class) => (
-        // eslint-disable-next-line react/jsx-key
-        <div className="card card-side bg-base-100 shadow-xl">
-          <figure>
-                  <img
-                      className="w-[200px]"
-              src={Class.url}
-              alt="Movie"
-            />
-          </figure>
-          <div className="card-body">
-            <h2 className="card-title">New movie is released!</h2>
-            <p>Click the button to watch on Jetflix app.</p>
-            <div className="card-actions justify-end">
-              <button className="btn btn-primary">Watch</button>
-              <button className="btn btn-primary">Watch</button>
-              <button className="btn btn-primary">Watch</button>
+    <div className="max-w-[70%] mx-auto">
+      {classes &&
+        classes.map((Class) => (
+          // eslint-disable-next-line react/jsx-key
+          <div className="card card-side bg-base-100 shadow-xl my-4">
+            <figure>
+              <img className="w-[200px]" src={Class.url} alt="Movie" />
+            </figure>
+            <div className="card-body">
+              <h2 className="card-title">{Class.name}</h2>
+              <p>Instructor name: {Class.Instructor}</p>
+              <p>Instructor Email: {Class.email}</p>
+              <p>Price: ${Class.price}</p>
+              <p>Available Seats{Class.seat}</p>
+              <p>Approve status: {Class.status}</p>
+              <div className="card-actions justify-end">
+                <button className="btn btn-primary">Watch</button>
+                <button className="btn btn-primary">Watch</button>
+                <button className="btn btn-primary">Watch</button>
+              </div>
             </div>
           </div>
-        </div>
-      ))}
+        ))}
     </div>
   );
 };
