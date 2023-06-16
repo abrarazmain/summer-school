@@ -13,6 +13,7 @@ const AddClass = () => {
     const processedData = {
       ...data,
       price: parseFloat(data.price),
+      seat: parseFloat(data.seat),
       status: "pending",
     };
 
@@ -26,8 +27,7 @@ const AddClass = () => {
       .then((res) => res.json())
       .then((result) => {
         if (result.insertedId) {
-            Swal.fire("Success!", "class added successfully!", "ok");
-            
+          Swal.fire("Success!", "class added successfully!", "ok");
         }
       });
   };
@@ -93,6 +93,17 @@ const AddClass = () => {
             type="number"
             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
             placeholder="price"
+          />
+        </div>
+        <div>
+          <label className="block mb-2 text-sm font-medium text-gray-900">
+            Price
+          </label>
+          <input
+            {...register("seat")}
+            type="number"
+            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+            placeholder="Available seat"
           />
         </div>
         <input
