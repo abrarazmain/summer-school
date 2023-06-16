@@ -4,6 +4,7 @@ import Home from "../pages/home/Home";
 import Login from "../pages/register/Login";
 import Register from "../pages/register/Register";
 import AddClass from "../pages/dashboard/AddClass";
+import AdminClass from "../pages/admin/AdminClass";
 
 const router = createBrowserRouter([
   {
@@ -25,6 +26,10 @@ const router = createBrowserRouter([
       {
         path: "addClass",
         element: <AddClass></AddClass>,
+      },
+      {
+        path: "adminClass",
+        element: <AdminClass></AdminClass>,
       },
     ],
   },
