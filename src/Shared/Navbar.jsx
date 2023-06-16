@@ -1,6 +1,10 @@
-import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { Link, NavLink } from "react-router-dom";
+import { AuthContext } from "../provider/AuthProvider";
 
 const Navbar = () => {
+  const { user, logOut } = useContext(AuthContext);
+  console.log(user);
   const navItems = (
     <>
       <li>
@@ -12,9 +16,11 @@ const Navbar = () => {
       <li>
         <Link>Classes</Link>
       </li>
-      <li>
-        <Link>DashBoard</Link>
-      </li>
+      {user && (
+        <li>
+          <Link to='/addClass'>DashBoard</Link>
+        </li>
+      )}
     </>
   );
   return (
@@ -48,7 +54,23 @@ const Navbar = () => {
         <ul className="menu menu-horizontal px-1">{navItems}</ul>
       </div>
       <div className="navbar-end">
-      <Link to='/login'><button className="btn">Login</button></Link>
+        {user && (
+          <div className="w-10 rounded mr-4 group relative  flex justify-center">
+            <img src={user.photoURL} />
+            <span className="absolute right-10 scale-0 rounded bg-gray-800 p-4 text-xs text-white group-hover:scale-100">
+              {user.displayName}{" "}
+            </span>
+          </div>
+        )}
+        {user ? (
+          <NavLink onClick={logOut} className="btn">
+            Logout
+          </NavLink>
+        ) : (
+          <NavLink to="/login" className="btn">
+            Login
+          </NavLink>
+        )}
       </div>
     </div>
   );
