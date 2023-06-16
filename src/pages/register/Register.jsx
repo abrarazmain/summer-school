@@ -1,12 +1,13 @@
 import { useContext } from "react";
 import { useForm } from "react-hook-form";
 
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../provider/AuthProvider";
 
 const Register = () => {
-  const { createUser, updateUserProfile,user } = useContext(AuthContext);
-console.log(user);
+  const { createUser, updateUserProfile, user } = useContext(AuthContext);
+  console.log(user?.photoURL);
+  const navigate = useNavigate();
   const {
     register,
     formState: { errors },
@@ -18,10 +19,34 @@ console.log(user);
     createUser(data.email, data.password).then((result) => {
       const loggedUser = result.user;
       console.log(loggedUser);
-      updateUserProfile(data.name, data.photoURL)
+      const user = {
+        name: data.name,
+        email: data.email,
+        url: data.photo,
+        position: "student",
+      };
+      fetch("http://localhost:5000/users", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(user),
+        
+      })
+      .then((res) => res.json())
+      .then((result) => {
+        if (result.insertedId) {
+           console.log('secccccc');
+            
+        }
+      })
+        .catch(err => {
+        console.log(err);
+      })
+      navigate("/");
+      updateUserProfile(data.name, data.photo)
         .then(() => {
           console.log("user profile info updated");
-        
         })
         .catch((error) => console.log(error));
     });

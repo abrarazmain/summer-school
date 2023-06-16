@@ -16,14 +16,29 @@ const Login = () => {
     const password = form.password.value;
     console.log(email, password);
     signIn(email, password).then((result) => {
-      // const user = result.user;
-      navigate(from, { replace: true });
+      const user = result.user;
+      console.log(user);
     });
   };
   const handleGoogleLogin = () => {
     googleLogin().then((result) => {
-      const user = result.user;
-      console.log(user);
+     const user = {name: result.user.displayName, email: result.user.email,url: result.user.photoURL,position:'student'}
+      fetch("http://localhost:5000/users", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(user),
+      })
+        .then((res) => res.json())
+        .then((result) => {
+          if (result.insertedId) {
+            console.log("secccccc");
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
       navigate(from, { replace: true });
     });
   };
