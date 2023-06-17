@@ -5,14 +5,12 @@ const Instructor = () => {
   const [classes, setClasses] = useState([]);
 
   useEffect(() => {
-    fetch(`http://localhost:5000/Instructor`)
+    fetch(`https://assignment-12-server-silk-beta.vercel.app/Instructor`)
       .then((res) => res.json())
       .then((data) => {
         setClasses(data);
       });
   }, []);
-
-  console.log(classes);
 
   return (
     <div>

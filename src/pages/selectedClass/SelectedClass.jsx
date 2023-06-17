@@ -15,14 +15,14 @@ const SelectedClass = () => {
   });
 
   useEffect(() => {
-    fetch(`http://localhost:5000/users`)
+    fetch(`https://assignment-12-server-silk-beta.vercel.app/users`)
       .then((res) => res.json())
       .then((data) => {
         setUsers(data);
       });
   }, []);
   useEffect(() => {
-    fetch(`http://localhost:5000/classes`)
+    fetch(`https://assignment-12-server-silk-beta.vercel.app/classes`)
       .then((res) => res.json())
       .then((data) => {
         setAllClass(data);
@@ -30,35 +30,33 @@ const SelectedClass = () => {
   }, [reload]);
 
   const mongoUser = users?.find((User) => User?.email === user?.email);
-  console.log(mongoUser);
 
   useEffect(() => {
-    fetch(`http://localhost:5000/selectedClasses/${mongoUser?._id}`)
+    fetch(
+      `https://assignment-12-server-silk-beta.vercel.app/selectedClasses/${mongoUser?._id}`
+    )
       .then((res) => res.json())
       .then((data) => {
-        // console.log(data);
         setClasses(data);
       });
   }, [mongoUser?._id, reload]);
 
   const handleDelete = (classId) => {
-    console.log(classId);
-    fetch(`http://localhost:5000/selectedClasses/${classId}`, {
-      method: "DELETE",
-    })
+    fetch(
+      `https://assignment-12-server-silk-beta.vercel.app/selectedClasses/${classId}`,
+      {
+        method: "DELETE",
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
         Swal.fire("deleted");
         setReload(!reload);
-        console.log(data.message); // Display success message
-        // Perform any additional actions or updates on the client-side
       })
       .catch((error) => {
         console.error(error);
       });
   };
-
-  console.log();
 
   return (
     <div>

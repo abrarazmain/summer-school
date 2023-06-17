@@ -6,7 +6,7 @@ import { AuthContext } from "../../provider/AuthProvider";
 
 const Register = () => {
   const { createUser, updateUserProfile, user } = useContext(AuthContext);
-  console.log(user?.photoURL);
+
   const navigate = useNavigate();
   const {
     register,
@@ -15,40 +15,27 @@ const Register = () => {
   } = useForm();
 
   const onSubmit = (data) => {
-    console.log(data);
     createUser(data.email, data.password).then((result) => {
       const loggedUser = result.user;
-      console.log(loggedUser);
+
       const user = {
         name: data.name,
         email: data.email,
         url: data.photo,
         position: "student",
       };
-      fetch("http://localhost:5000/users", {
+      fetch("https://assignment-12-server-silk-beta.vercel.app/users", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(user),
-        
       })
-      .then((res) => res.json())
-      .then((result) => {
-        if (result.insertedId) {
-           console.log('secccccc');
-            
-        }
-      })
-        .catch(err => {
-        console.log(err);
-      })
+        .then((res) => res.json())
+        .then((result) => {})
+        .catch((err) => {});
       navigate("/");
-      updateUserProfile(data.name, data.photo)
-        .then(() => {
-          console.log("user profile info updated");
-        })
-        .catch((error) => console.log(error));
+      updateUserProfile(data.name, data.photo).then(() => {});
     });
   };
 

@@ -8,10 +8,8 @@ const AllClass = () => {
   const [classes, setClasses] = useState([]);
   const [users, setUsers] = useState([]);
 
-
-
   useEffect(() => {
-    fetch(`http://localhost:5000/users`)
+    fetch(`https://assignment-12-server-silk-beta.vercel.app/users`)
       .then((res) => res.json())
       .then((data) => {
         setUsers(data);
@@ -19,10 +17,9 @@ const AllClass = () => {
   }, []);
 
   const mongoUser = users?.find((User) => User?.email === user?.email);
-  console.log(mongoUser);
 
   useEffect(() => {
-    fetch(`http://localhost:5000/classes`)
+    fetch(`https://assignment-12-server-silk-beta.vercel.app/classes`)
       .then((res) => res.json())
       .then((data) => {
         setClasses(data);
@@ -30,7 +27,7 @@ const AllClass = () => {
   }, []);
 
   const handleAction = (classId) => {
-    fetch("http://localhost:5000/selectedClasses", {
+    fetch("https://assignment-12-server-silk-beta.vercel.app/selectedClasses", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -42,14 +39,9 @@ const AllClass = () => {
         if (data.insertedId) {
           Swal.fire("Success!", "class added successfully!", "ok");
         }
-        console.log(data);
       })
-      .catch((error) => {
-        console.error(error);
-      });
+      .catch((error) => {});
   };
-
-  console.log(classes);
 
   return (
     <div>

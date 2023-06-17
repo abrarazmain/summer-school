@@ -4,7 +4,7 @@ const AdminClass = () => {
   const [classes, setClasses] = useState([]);
   const [reload, setReload] = useState(true);
   useEffect(() => {
-    fetch(`http://localhost:5000/classes`)
+    fetch(`https://assignment-12-server-silk-beta.vercel.app/classes`)
       .then((res) => res.json())
       .then((data) => {
         setClasses(data);
@@ -12,24 +12,23 @@ const AdminClass = () => {
   }, [reload]);
 
   const handleAction = (status, id) => {
-    fetch(`http://localhost:5000/updateClass/${id}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ status }),
-    })
+    fetch(
+      `https://assignment-12-server-silk-beta.vercel.app/updateClass/${id}`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ status }),
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
-        setReload(!reload)
+        setReload(!reload);
       })
-      .catch((error) => {
-        console.error(error);
-      });
+      .catch((error) => {});
   };
 
-  console.log(classes);
   return (
     <div className="max-w-[70%] mx-auto">
       {classes &&

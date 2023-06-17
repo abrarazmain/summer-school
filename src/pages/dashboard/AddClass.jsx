@@ -17,7 +17,7 @@ const AddClass = () => {
       status: "pending",
     };
 
-    fetch("http://localhost:5000/classes", {
+    fetch("https://assignment-12-server-silk-beta.vercel.app/classes", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

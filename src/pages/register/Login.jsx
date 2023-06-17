@@ -21,7 +21,6 @@ const Login = () => {
 
     signIn(data.email, data.password).then((result) => {
       const user = result.user;
-      console.log(user);
     });
   };
   const handleGoogleLogin = () => {
@@ -32,7 +31,7 @@ const Login = () => {
         url: result.user.photoURL,
         position: "student",
       };
-      fetch("http://localhost:5000/users", {
+      fetch("https://assignment-12-server-silk-beta.vercel.app/users", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -40,14 +39,8 @@ const Login = () => {
         body: JSON.stringify(user),
       })
         .then((res) => res.json())
-        .then((result) => {
-          if (result.insertedId) {
-            console.log("secccccc");
-          }
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+        .then((result) => {})
+        .catch((err) => {});
       navigate(from, { replace: true });
     });
   };

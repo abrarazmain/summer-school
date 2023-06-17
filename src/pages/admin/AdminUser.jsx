@@ -6,7 +6,7 @@ const AdminUser = () => {
   const [reload, setReload] = useState(true);
 
   useEffect(() => {
-    fetch(`http://localhost:5000/users`)
+    fetch(`https://assignment-12-server-silk-beta.vercel.app/users`)
       .then((res) => res.json())
       .then((data) => {
         setUsers(data);
@@ -14,13 +14,16 @@ const AdminUser = () => {
   }, [reload]);
 
   const handleAction = (position, id) => {
-    fetch(`http://localhost:5000/updateUser/${id}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ position }),
-    })
+    fetch(
+      `https://assignment-12-server-silk-beta.vercel.app/updateUser/${id}`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ position }),
+      }
+    )
       .then((res) => res.json())
       .then(() => {
         Swal.fire("Success!", "successfully changed the role!", "ok");
@@ -31,7 +34,6 @@ const AdminUser = () => {
       });
   };
 
-  console.log(users);
   return (
     <div className="max-w-[70%] mx-auto">
       {users &&

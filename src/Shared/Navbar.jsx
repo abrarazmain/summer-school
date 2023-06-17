@@ -7,7 +7,7 @@ const Navbar = () => {
 
   const [users, setUsers] = useState([]);
   useEffect(() => {
-    fetch(`http://localhost:5000/users`)
+    fetch(`https://assignment-12-server-silk-beta.vercel.app/users`)
       .then((res) => res.json())
       .then((data) => {
         setUsers(data);
@@ -15,9 +15,6 @@ const Navbar = () => {
   }, []);
 
   const mongoUser = users?.find((User) => User?.email === user?.email);
-  console.log(mongoUser);
-
-  console.log(mongoUser?.position);
 
   let navItems = (
     <>
@@ -25,10 +22,10 @@ const Navbar = () => {
         <Link>Home</Link>
       </li>
       <li>
-        <Link to='/instructors'>Instructor</Link>
+        <Link to="/instructors">Instructor</Link>
       </li>
       <li>
-        <Link to='/classes'>Classes</Link>
+        <Link to="/classes">Classes</Link>
       </li>
     </>
   );
