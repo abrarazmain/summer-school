@@ -49,7 +49,7 @@ const AdminUser = () => {
               <h2 className="card-title">{user.name}</h2>
 
               <p>Email: {user.email}</p>
-              <p>Position: ${user.position}</p>
+              <p>Position: {user.position}</p>
               <div className="card-actions justify-end">
                 <button
                   onClick={() => handleAction("instructor", user._id)}
