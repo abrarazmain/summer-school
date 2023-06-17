@@ -26,7 +26,7 @@ const SelectedClass = () => {
         // console.log(data);
         setClasses(data);
       });
-  }, [classes]);
+  }, [mongoUser._id]);
 
   console.log(classes);
 
