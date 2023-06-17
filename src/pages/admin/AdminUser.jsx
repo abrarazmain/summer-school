@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import Swal from "sweetalert2";
 
 const AdminUser = () => {
   const [users, setUsers] = useState([]);
@@ -18,10 +19,11 @@ const AdminUser = () => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ position }), 
+      body: JSON.stringify({ position }),
     })
       .then((res) => res.json())
       .then(() => {
+        Swal.fire("Success!", "successfully changed the role!", "ok");
         setReload(!reload);
       })
       .catch((error) => {

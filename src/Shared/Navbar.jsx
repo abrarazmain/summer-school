@@ -39,7 +39,7 @@ const Navbar = () => {
         <>
           {navItems}
           <li>
-            <Link to=""></Link>
+            <Link to="selectedClass">Selected Class</Link>
           </li>
         </>
       );

@@ -1,11 +1,14 @@
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../provider/AuthProvider";
 import { Link } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const AllClass = () => {
   const { user } = useContext(AuthContext);
   const [classes, setClasses] = useState([]);
   const [users, setUsers] = useState([]);
+
+
 
   useEffect(() => {
     fetch(`http://localhost:5000/users`)
@@ -36,6 +39,9 @@ const AllClass = () => {
     })
       .then((res) => res.json())
       .then((data) => {
+        if (data.insertedId) {
+          Swal.fire("Success!", "class added successfully!", "ok");
+        }
         console.log(data);
       })
       .catch((error) => {

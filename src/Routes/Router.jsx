@@ -7,6 +7,7 @@ import AddClass from "../pages/dashboard/AddClass";
 import AdminClass from "../pages/admin/AdminClass";
 import AdminUser from "../pages/admin/AdminUser";
 import AllClass from "../pages/allClass/AllClass";
+import SelectedClass from "../pages/selectedClass/SelectedClass";
 
 const router = createBrowserRouter([
   {
@@ -40,6 +41,10 @@ const router = createBrowserRouter([
       {
         path: "classes",
         element: <AllClass></AllClass>,
+      },
+      {
+        path: "selectedClass",
+        element: <SelectedClass></SelectedClass>,
       },
     ],
   },
