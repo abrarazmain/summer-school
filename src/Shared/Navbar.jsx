@@ -26,6 +26,11 @@ const Navbar = () => {
           <Link to="/adminClass">ADashBoard</Link>
         </li>
       )}
+      {user && (
+          <li>
+          <Link to="/adminUser">adminUser</Link>
+        </li>
+      )}
     </>
   );
   return (

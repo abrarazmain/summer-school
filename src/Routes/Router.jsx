@@ -5,6 +5,7 @@ import Login from "../pages/register/Login";
 import Register from "../pages/register/Register";
 import AddClass from "../pages/dashboard/AddClass";
 import AdminClass from "../pages/admin/AdminClass";
+import AdminUser from "../pages/admin/AdminUser";
 
 const router = createBrowserRouter([
   {
@@ -30,6 +31,10 @@ const router = createBrowserRouter([
       {
         path: "adminClass",
         element: <AdminClass></AdminClass>,
+      },
+      {
+        path: "adminUser",
+        element: <AdminUser></AdminUser>,
       },
     ],
   },
