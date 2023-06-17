@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { Link, NavLink } from "react-router-dom";
+import {  Link, NavLink } from "react-router-dom";
 import { AuthContext } from "../provider/AuthProvider";
 
 const Navbar = () => {
@@ -19,13 +19,13 @@ const Navbar = () => {
   let navItems = (
     <>
       <li>
-        <Link>Home</Link>
+        <Link to='/'>Home</Link>
       </li>
       <li>
-        <Link to="/instructors">Instructor</Link>
+        <NavLink to="/instructors">Instructor</NavLink>
       </li>
       <li>
-        <Link to="/classes">Classes</Link>
+        <NavLink to="/classes">Classes</NavLink>
       </li>
     </>
   );
@@ -36,7 +36,7 @@ const Navbar = () => {
         <>
           {navItems}
           <li>
-            <Link to="selectedClass">Selected Class</Link>
+            <NavLink to="selectedClass">Selected Class</NavLink>
           </li>
         </>
       );
@@ -45,7 +45,7 @@ const Navbar = () => {
         <>
           {navItems}
           <li>
-            <Link to="/addClass">Add Class</Link>
+            <NavLink to="/addClass">Add Class</NavLink>
           </li>
         </>
       );
@@ -54,10 +54,10 @@ const Navbar = () => {
         <>
           {navItems}
           <li>
-            <Link to="/adminClass">Manage Class</Link>
+            <NavLink to="/adminClass">Manage Class</NavLink>
           </li>
           <li>
-            <Link to="/adminUser">Manage User</Link>
+            <NavLink to="/adminUser">Manage User</NavLink>
           </li>
         </>
       );

@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../provider/AuthProvider";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
+import { Fade } from "react-awesome-reveal";
 
 const AllClass = () => {
   const { user } = useContext(AuthContext);
@@ -40,13 +41,15 @@ const AllClass = () => {
           Swal.fire("Success!", "class added successfully!", "ok");
         }
       })
-      .catch((error) => {});
+     
   };
 
   return (
     <div>
-      <h1 className="text-5xl uppercase text-center text-red-600 mt-12">
-        Our Classes
+      <h1 className="text-2xl md:text-5xl uppercase text-center text-red-600 mt-12">
+        <Fade delay={1e3} cascade damping={1e-1}>
+         Our Classes
+        </Fade>
       </h1>
       <div className="grid grid-cols-3 my-12 gap-6">
         {classes.map((Class) => (

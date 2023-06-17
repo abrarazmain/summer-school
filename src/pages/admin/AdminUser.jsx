@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Fade } from "react-awesome-reveal";
 import Swal from "sweetalert2";
 
 const AdminUser = () => {
@@ -36,6 +37,11 @@ const AdminUser = () => {
 
   return (
     <div className="max-w-[70%] mx-auto">
+       <h1 className="text-2xl md:text-5xl uppercase text-center text-red-600 mt-12">
+        <Fade delay={1e3} cascade damping={1e-1}>
+          Manage Users
+        </Fade>
+      </h1>
       {users &&
         users.map((user) => (
           <div
@@ -52,12 +58,14 @@ const AdminUser = () => {
               <p>Position: {user.position}</p>
               <div className="card-actions justify-end">
                 <button
+                   disabled={user.position == "instructor"}
                   onClick={() => handleAction("instructor", user._id)}
                   className="btn btn-primary"
                 >
                   Make Instructor
                 </button>
                 <button
+                    disabled={user.position == "admin"}
                   onClick={() => handleAction("admin", user._id)}
                   className="btn btn-primary"
                 >

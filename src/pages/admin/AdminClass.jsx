@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+import { Fade } from "react-awesome-reveal";
+import Swal from "sweetalert2";
 
 const AdminClass = () => {
   const [classes, setClasses] = useState([]);
@@ -24,13 +26,19 @@ const AdminClass = () => {
     )
       .then((res) => res.json())
       .then((data) => {
+        Swal.fire('Status Updated')
         setReload(!reload);
       })
-      .catch((error) => {});
+     
   };
 
   return (
     <div className="max-w-[70%] mx-auto">
+       <h1 className="text-2xl md:text-5xl uppercase text-center text-red-600 mt-12">
+        <Fade delay={1e3} cascade damping={1e-1}>
+          Manage Classes
+        </Fade>
+      </h1>
       {classes &&
         classes.map((Class) => (
           <div
@@ -56,8 +64,8 @@ const AdminClass = () => {
                   Approve
                 </button>
                 <button
-                  onClick={() => handleAction("approved", Class._id)}
                   disabled={Class.status == "denied"}
+                  onClick={() => handleAction("denied", Class._id)}
                   className="btn btn-primary"
                 >
                   Deny

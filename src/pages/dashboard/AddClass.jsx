@@ -2,6 +2,7 @@ import { useContext } from "react";
 import { AuthContext } from "../../provider/AuthProvider";
 import Swal from "sweetalert2";
 import { useForm } from "react-hook-form";
+import { Fade } from "react-awesome-reveal";
 
 const AddClass = () => {
   const { register, handleSubmit } = useForm();
@@ -33,9 +34,11 @@ const AddClass = () => {
   };
   return (
     <form className="mb-36 rounded" onSubmit={handleSubmit(onSubmit)}>
-      <h2 className="text-3xl sm:text-5xl block font-extrabold text-[#65C3C8] text-center my-12 rounded ">
-        Add A Class
-      </h2>
+      <h1 className="text-2xl md:text-5xl uppercase text-center text-red-600 mt-12">
+        <Fade delay={1e3} cascade damping={1e-1}>
+          Add A CLass
+        </Fade>
+      </h1>
       <div className="grid gap-6  md:grid-cols-2 bg-base-400 py-4 px-3  ">
         <div>
           <label className="block mb-2 text-sm font-medium text-gray-900">

@@ -1,11 +1,12 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../provider/AuthProvider";
 
 const Register = () => {
-  const { createUser, updateUserProfile, user } = useContext(AuthContext);
+  const { createUser, updateUserProfile,} = useContext(AuthContext);
+  const [error,setError]=useState(false)
 
   const navigate = useNavigate();
   const {
@@ -15,9 +16,16 @@ const Register = () => {
   } = useForm();
 
   const onSubmit = (data) => {
+    if (data.password !== data.confirm) {
+      setError(!error)
+      // You can display an error message or handle it in any other way
+      console.log("Passwords don't match");
+      return;
+    }
+  
     createUser(data.email, data.password).then((result) => {
       const loggedUser = result.user;
-
+  
       const user = {
         name: data.name,
         email: data.email,
@@ -38,6 +46,7 @@ const Register = () => {
       updateUserProfile(data.name, data.photo).then(() => {});
     });
   };
+  
 
   return (
     <div className="min-h-screen bg-gray-100 text-gray-900 flex justify-center">
@@ -94,6 +103,18 @@ const Register = () => {
                       number and one special character.
                     </p>
                   )}
+                  {error && (
+                    <p className="text-red-600">
+                    Both password have to match
+                    </p>
+                  )}
+                     <input
+                    className="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
+                    type="password"
+                    placeholder="Confirm Password"
+                    name="confirm"
+                    {...register("confirm")}
+                  />
                   <input
                     className="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
                     type="text"
