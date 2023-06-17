@@ -1,11 +1,25 @@
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { AuthContext } from "../provider/AuthProvider";
 
 const Navbar = () => {
   const { user, logOut } = useContext(AuthContext);
-  console.log(user);
-  const navItems = (
+
+  const [users, setUsers] = useState([]);
+  useEffect(() => {
+    fetch(`http://localhost:5000/users`)
+      .then((res) => res.json())
+      .then((data) => {
+        setUsers(data);
+      });
+  }, []);
+
+  const mongoUser = users?.find((User) => User?.email === user?.email);
+  console.log(mongoUser);
+
+  console.log(mongoUser?.position);
+
+  let navItems = (
     <>
       <li>
         <Link>Home</Link>
@@ -16,23 +30,42 @@ const Navbar = () => {
       <li>
         <Link>Classes</Link>
       </li>
-      {user && (
-          <li>
-          <Link to="/addClass">DashBoard</Link>
-        </li>
-      )}
-      {user && (
-          <li>
-          <Link to="/adminClass">ADashBoard</Link>
-        </li>
-      )}
-      {user && (
-          <li>
-          <Link to="/adminUser">adminUser</Link>
-        </li>
-      )}
     </>
   );
+
+  if (user) {
+    if (mongoUser?.position === "student") {
+      navItems = (
+        <>
+          {navItems}
+          <li>
+            <Link to="/buyClass">Dashboard</Link>
+          </li>
+        </>
+      );
+    } else if (mongoUser?.position === "instructor") {
+      navItems = (
+        <>
+          {navItems}
+          <li>
+            <Link to="/addClass">Add Class</Link>
+          </li>
+        </>
+      );
+    } else if (mongoUser?.position === "admin") {
+      navItems = (
+        <>
+          {navItems}
+          <li>
+            <Link to="/adminClass">Manage Class</Link>
+          </li>
+          <li>
+            <Link to="/adminUser">Manage User</Link>
+          </li>
+        </>
+      );
+    }
+  }
   return (
     <div className="navbar bg-base-300 rounded">
       <div className="navbar-start">

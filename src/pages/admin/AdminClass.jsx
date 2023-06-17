@@ -2,14 +2,14 @@ import { useEffect, useState } from "react";
 
 const AdminClass = () => {
   const [classes, setClasses] = useState([]);
-
+  const [reload, setReload] = useState(true);
   useEffect(() => {
     fetch(`http://localhost:5000/classes`)
       .then((res) => res.json())
       .then((data) => {
         setClasses(data);
       });
-  }, []);
+  }, [reload]);
 
   const handleAction = (status, id) => {
     fetch(`http://localhost:5000/updateClass/${id}`, {
@@ -22,6 +22,7 @@ const AdminClass = () => {
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
+        setReload(!reload)
       })
       .catch((error) => {
         console.error(error);

@@ -18,10 +18,10 @@ const AdminUser = () => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ position }), // Send the position value in the request body
+      body: JSON.stringify({ position }), 
     })
       .then((res) => res.json())
-      .then((data) => {
+      .then(() => {
         setReload(!reload);
       })
       .catch((error) => {
