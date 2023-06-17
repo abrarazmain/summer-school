@@ -1,28 +1,37 @@
 import { useContext } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../provider/AuthProvider";
+import { useForm } from "react-hook-form";
 
 const Login = () => {
   const { signIn, googleLogin } = useContext(AuthContext);
   const navigate = useNavigate();
   const location = useLocation();
 
+  const {
+    register,
+
+    handleSubmit,
+  } = useForm();
+
   const from = location.state?.from?.pathname || "/";
 
-  const handleLogin = (event) => {
+  const onSubmit = (data) => {
     event.preventDefault();
-    const form = event.target;
-    const email = form.email.value;
-    const password = form.password.value;
-    console.log(email, password);
-    signIn(email, password).then((result) => {
+
+    signIn(data.email, data.password).then((result) => {
       const user = result.user;
       console.log(user);
     });
   };
   const handleGoogleLogin = () => {
     googleLogin().then((result) => {
-     const user = {name: result.user.displayName, email: result.user.email,url: result.user.photoURL,position:'student'}
+      const user = {
+        name: result.user.displayName,
+        email: result.user.email,
+        url: result.user.photoURL,
+        position: "student",
+      };
       fetch("http://localhost:5000/users", {
         method: "POST",
         headers: {
@@ -85,19 +94,21 @@ const Login = () => {
             </div>
             <div className="w-full flex-1 ">
               <div className="mx-auto max-w-xs">
-                <form onSubmit={handleLogin}>
+                <form onSubmit={handleSubmit(onSubmit)}>
                   {" "}
                   <input
                     className="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
                     type="email"
                     placeholder="Email"
                     name="email"
+                    {...register("email")}
                   />
                   <input
                     className="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
                     type="password"
                     placeholder="Password"
                     name="password"
+                    {...register("password")}
                   />
                   <button className="mt-5 tracking-wide font-semibold bg-indigo-500 text-gray-100 w-full py-4 rounded-lg hover:bg-indigo-700 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none">
                     <svg

@@ -16,12 +16,12 @@ const PopularInstructor = () => {
 
   return (
     <div>
-      <h1 className="text-5xl uppercase text-center text-red-600 mt-12">
+      <h1 className="text-2xl md:text-5xl uppercase text-center text-red-600 mt-12">
         <Fade delay={1e3} cascade damping={1e-1}>
           Popular Instructors
         </Fade>
       </h1>
-      <div className="grid grid-cols-3 my-12 gap-3">
+      <div className="grid grid-cols-1 md:grid-cols-3 my-12 gap-3">
         {classes.map((Class) => (
           // eslint-disable-next-line react/jsx-key
           <div className="card w-96 bg-base-100 shadow-xl">
