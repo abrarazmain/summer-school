@@ -17,7 +17,7 @@ const AdminClass = () => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(status),
+      body: JSON.stringify({ status }),
     })
       .then((res) => res.json())
       .then((data) => {
@@ -49,12 +49,19 @@ const AdminClass = () => {
               <p>Approve status: {Class.status}</p>
               <div className="card-actions justify-end">
                 <button
+                  disabled={Class.status == "approved"}
                   onClick={() => handleAction("approved", Class._id)}
                   className="btn btn-primary"
                 >
                   Approve
                 </button>
-                <button className="btn btn-primary">Deny</button>
+                <button
+                  onClick={() => handleAction("approved", Class._id)}
+                  disabled={Class.status == "denied"}
+                  className="btn btn-primary"
+                >
+                  Deny
+                </button>
                 <button className="btn btn-primary">Send Feedback</button>
               </div>
             </div>

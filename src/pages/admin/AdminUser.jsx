@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 
 const AdminUser = () => {
   const [users, setUsers] = useState([]);
+  const [reload, setReload] = useState(true);
 
   useEffect(() => {
     fetch(`http://localhost:5000/users`)
@@ -9,7 +10,24 @@ const AdminUser = () => {
       .then((data) => {
         setUsers(data);
       });
-  }, []);
+  }, [reload]);
+
+  const handleAction = (position, id) => {
+    fetch(`http://localhost:5000/updateUser/${id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ position }), // Send the position value in the request body
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        setReload(!reload);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
 
   console.log(users);
   return (
@@ -29,9 +47,18 @@ const AdminUser = () => {
               <p>Email: {user.email}</p>
               <p>Position: ${user.position}</p>
               <div className="card-actions justify-end">
-                <button className="btn btn-primary">make instructor</button>
-                <button className="btn btn-primary">make admin</button>
-
+                <button
+                  onClick={() => handleAction("instructor", user._id)}
+                  className="btn btn-primary"
+                >
+                  Make Instructor
+                </button>
+                <button
+                  onClick={() => handleAction("admin", user._id)}
+                  className="btn btn-primary"
+                >
+                  Make Admin
+                </button>
               </div>
             </div>
           </div>
