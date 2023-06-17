@@ -9,6 +9,8 @@ import AdminUser from "../pages/admin/AdminUser";
 import AllClass from "../pages/allClass/AllClass";
 import SelectedClass from "../pages/selectedClass/SelectedClass";
 import Error from "../pages/error/Error";
+import PrivateRoute from "./PrivateRoute";
+import Instructor from "../pages/instructors/Instructors";
 
 const router = createBrowserRouter([
   {
@@ -29,23 +31,43 @@ const router = createBrowserRouter([
       },
       {
         path: "addClass",
-        element: <AddClass></AddClass>,
+        element: (
+          <PrivateRoute>
+            <AddClass></AddClass>
+          </PrivateRoute>
+        ),
       },
       {
         path: "adminClass",
-        element: <AdminClass></AdminClass>,
+        element: (
+          <PrivateRoute>
+            <AdminClass></AdminClass>
+          </PrivateRoute>
+        ),
       },
       {
         path: "adminUser",
-        element: <AdminUser></AdminUser>,
+        element: (
+          <PrivateRoute>
+            <AdminUser></AdminUser>
+          </PrivateRoute>
+        ),
       },
       {
         path: "classes",
         element: <AllClass></AllClass>,
       },
       {
+        path: "instructors",
+        element:<Instructor></Instructor>,
+      },
+      {
         path: "selectedClass",
-        element: <SelectedClass></SelectedClass>,
+        element: (
+          <PrivateRoute>
+            <SelectedClass></SelectedClass>
+          </PrivateRoute>
+        ),
       },
     ],
   },

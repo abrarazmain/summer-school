@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Fade } from "react-awesome-reveal";
 
 const PopularInstructor = () => {
   const [classes, setClasses] = useState([]);
@@ -16,7 +17,9 @@ const PopularInstructor = () => {
   return (
     <div>
       <h1 className="text-5xl uppercase text-center text-red-600 mt-12">
-        Popular Instructors
+        <Fade delay={1e3} cascade damping={1e-1}>
+          Popular Instructors
+        </Fade>
       </h1>
       <div className="grid grid-cols-3 my-12 gap-3">
         {classes.map((Class) => (
@@ -24,7 +27,7 @@ const PopularInstructor = () => {
           <div className="card w-96 bg-base-100 shadow-xl">
             <div className="card-body">
               <h2 className="card-title">{Class.name}</h2>
-              <p>Price : ${Class.email}</p>
+              <p>Email :{Class.email}</p>
             </div>
             <figure>
               <img src={Class.url} alt="Shoes" />

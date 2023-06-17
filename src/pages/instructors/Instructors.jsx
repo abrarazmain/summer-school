@@ -1,11 +1,11 @@
-import  { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Fade } from "react-awesome-reveal";
 
-const PopularClasses = () => {
+const Instructor = () => {
   const [classes, setClasses] = useState([]);
 
   useEffect(() => {
-    fetch(`http://localhost:5000/popularClasses`)
+    fetch(`http://localhost:5000/Instructor`)
       .then((res) => res.json())
       .then((data) => {
         setClasses(data);
@@ -15,20 +15,19 @@ const PopularClasses = () => {
   console.log(classes);
 
   return (
-      <div>
-           <h1 className="text-5xl uppercase text-center text-red-600 mt-12">
-           <Fade delay={1e3} cascade damping={1e-1}>
-     Popular Language Classes
-      </Fade>
-        </h1>
+    <div>
+      <h1 className="text-5xl uppercase text-center text-red-600 mt-12">
+        <Fade delay={1e3} cascade damping={1e-1}>
+          Our Instructors
+        </Fade>
+      </h1>
       <div className="grid grid-cols-3 my-12 gap-3">
-       
         {classes.map((Class) => (
           // eslint-disable-next-line react/jsx-key
           <div className="card w-96 bg-base-100 shadow-xl">
             <div className="card-body">
               <h2 className="card-title">{Class.name}</h2>
-                    <p>Price : ${ Class.price}</p>
+              <p>Email :{Class.email}</p>
             </div>
             <figure>
               <img src={Class.url} alt="Shoes" />
@@ -40,4 +39,4 @@ const PopularClasses = () => {
   );
 };
 
-export default PopularClasses;
+export default Instructor;

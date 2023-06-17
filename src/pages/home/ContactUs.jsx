@@ -1,5 +1,6 @@
 import { useRef } from "react";
 import emailjs from "@emailjs/browser";
+import { Fade } from "react-awesome-reveal";
 
 const ContactUs = () => {
   const form = useRef();
@@ -8,18 +9,14 @@ const ContactUs = () => {
 
     emailjs
       .sendForm(
-        import.meta.env.VITE_service,
-        import.meta.env.VITE_template,
+        "service_57llb9s",
+        "template_c70h907",
         form.current,
-        import.meta.env.VITE_private
+        "8MVsDKJSxcg_N6-um"
       )
       .then(
-        (result) => {
-
-        },
-        (error) => {
-    
-        }
+        (result) => {},
+        (error) => {}
       );
   };
 
@@ -32,7 +29,9 @@ const ContactUs = () => {
           <div className="flex justify-center">
             <div className="text-center lg:max-w-3xl md:max-w-xl">
               <h2 className="text-3xl sm:text-5xl block font-extrabold text-[#65C3C8] text-center my-12 ">
-                Contact Us
+                <Fade delay={1e3} cascade damping={1e-1}>
+                  Contact Us
+                </Fade>
               </h2>
             </div>
           </div>
