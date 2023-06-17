@@ -21,8 +21,7 @@ const PopularInstructor = () => {
       </h1>
       <div className="grid grid-cols-1 md:grid-cols-3 my-12 gap-3">
         {classes.map((Class) => (
-          // eslint-disable-next-line react/jsx-key
-          <div className="card w-96 bg-base-100 shadow-xl">
+          <div key={Class._id} className="card w-96 bg-base-100 shadow-xl">
             <div className="card-body">
               <h2 className="card-title">{Class.name}</h2>
               <p>Email :{Class.email}</p>
