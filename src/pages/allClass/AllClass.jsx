@@ -26,6 +26,23 @@ const AllClass = () => {
       });
   }, []);
 
+  const handleAction = (classId) => {
+    fetch("http://localhost:5000/selectedClasses", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ userId: mongoUser._id, classId }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+
   console.log(classes);
 
   return (
@@ -46,10 +63,11 @@ const AllClass = () => {
                 <>
                   <button
                     disabled={
-                      mongoUser.position == "admin" ||
-                      mongoUser.position == "instructor"
+                      mongoUser?.position == "admin" ||
+                      mongoUser?.position == "instructor"
                     }
                     className="btn"
+                    onClick={() => handleAction(Class._id)}
                   >
                     Select Class
                   </button>
