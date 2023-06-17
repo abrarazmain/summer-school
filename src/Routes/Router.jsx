@@ -8,6 +8,7 @@ import AdminClass from "../pages/admin/AdminClass";
 import AdminUser from "../pages/admin/AdminUser";
 import AllClass from "../pages/allClass/AllClass";
 import SelectedClass from "../pages/selectedClass/SelectedClass";
+import Error from "../pages/error/Error";
 
 const router = createBrowserRouter([
   {
@@ -47,6 +48,10 @@ const router = createBrowserRouter([
         element: <SelectedClass></SelectedClass>,
       },
     ],
+  },
+  {
+    path: "*",
+    element: <Error></Error>,
   },
 ]);
 
